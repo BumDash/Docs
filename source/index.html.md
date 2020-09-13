@@ -81,9 +81,9 @@ The URL is a standin for now
 }
 ```
 
-| Parameter | Type   | Description                    |
-| --------- | ------ | ------------------------------ |
-| id        | String | Stripe customer ID of customer |
+| Parameter | Type   | Description                                        |
+| --------- | ------ | -------------------------------------------------- |
+| id        | String | Stripe customer ID of customer - from createParent |
 
 
 
