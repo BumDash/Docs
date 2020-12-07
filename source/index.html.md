@@ -12,14 +12,8 @@ includes:
 
 search: true
 ---
-
-# Introduction
-
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+# Intro
+BumDash - Docs
 
 # Create Parent - Customer in Stripe
 
@@ -98,10 +92,40 @@ The URL is a standin for now
 | ------------ | ------ | ------------------------------------------------------ |
 | clientSecret | String | secret to be associated for all future payment intents |
 
+# Get Customers Route
+
+`POST https://us-east1-bumdash-sandbox.cloudfunctions.net/FindDeliveryDay` 
+
+<aside class="notice">
+The URL is a standin for now
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "lat": 35.248246, 
+  "lng":-80.819442
+}
+```
+
+| Parameter | Type  | Description                          |
+| --------- | ----- | ------------------------------------ |
+| lat       | float | Latitude in degrees of the customer  |
+| lng       | float | Longitude in degrees of the customer |
 
 
 
+## Response 
 
+>Response looks like the following
 
+```javascript
+{
+  "route":"tcVhaslMyaGEnwlqwgn6"
+}
+```
 
-
+| Parameter | Type   | Description                                                                                                                                               |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| route     | String | routeID as is stored in the database within the `routes` collection. If the coordinates are out of the service area, the value returns as `Unserviceable` |
