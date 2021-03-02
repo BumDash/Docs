@@ -249,6 +249,25 @@
               </ul>
           </li>
           <li>
+            <a href="#subscription-management" class="toc-h1 toc-link" data-title="Subscription Management">Subscription Management</a>
+          </li>
+          <li>
+            <a href="#activate-subscription" class="toc-h1 toc-link" data-title="Activate subscription">Activate subscription</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#response-4" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#get-parent-39-s-subscription" class="toc-h1 toc-link" data-title="Get parent's Subscription">Get parent's Subscription</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#response-5" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
@@ -421,6 +440,106 @@ The URL is a standin for now
 <td>route</td>
 <td>String</td>
 <td>routeID as is stored in the database within the <code>routes</code> collection. If the coordinates are out of the service area, the value returns as <code>Unserviceable</code></td>
+</tr>
+</tbody></table>
+<h1 id='subscription-management'>Subscription Management</h1>
+<aside class="notice">
+    This is a work in progress as we figure out the best way to do this. Currently `POST` and creating a subscription is the action of 'activating' a subscription. Pausing isn't currently supported but will be eventually likely as a `PUT`.
+</aside>
+<h1 id='activate-subscription'>Activate subscription</h1>
+<p><code>POST https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription</code></p>
+
+<aside class="notice">
+The URL is a standin for now
+</aside>
+
+<blockquote>
+<p>Requests require the following keys</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">cus_1234</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Stripe customer ID of customer</td>
+</tr>
+</tbody></table>
+<h2 id='response-4'>Response</h2>
+<blockquote>
+<p>Response looks like the following</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">subscription_id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">sub_J2VCueNEWsAbKD</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id</td>
+<td>String</td>
+<td>Subscription ID from stripe of the parents subscription to the current price of the delivery service</td>
+</tr>
+</tbody></table>
+<h1 id='get-parent-39-s-subscription'>Get parent&#39;s Subscription</h1>
+<p><code>GET https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription</code></p>
+
+<aside class="notice">
+The URL is a standin for now
+</aside>
+
+<blockquote>
+<p>Requests require the following keys</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">cus_1234</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Stripe customer ID of customer</td>
+</tr>
+</tbody></table>
+<h2 id='response-5'>Response</h2>
+<blockquote>
+<p>Response looks like the following</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">subscription_ids</span><span class="dl">"</span><span class="p">:[</span><span class="dl">"</span><span class="s2">sub_J2VCueNEWsAbKD</span><span class="dl">"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_ids</td>
+<td>String Array</td>
+<td>Array of subscription IDs assigned to the user. This should only ever be one but as it may be multiple, I&#39;m returning them all</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
