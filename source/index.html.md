@@ -129,3 +129,77 @@ The URL is a standin for now
 | Parameter | Type   | Description                                                                                                                                               |
 | --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | route     | String | routeID as is stored in the database within the `routes` collection. If the coordinates are out of the service area, the value returns as `Unserviceable` |
+
+# Subscription Management
+<aside class="notice">
+    This is a work in progress as we figure out the best way to do this. Currently `POST` and creating a subscription is the action of 'activating' a subscription. Pausing isn't currently supported but will be eventually likely as a `PUT`.
+</aside>
+# Activate subscription
+
+`POST https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription`
+
+<aside class="notice">
+The URL is a standin for now
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "id":"cus_1234"
+}
+```
+
+| Parameter | Type   | Description                                        |
+| --------- | ------ | -------------------------------------------------- |
+| id        | String | Stripe customer ID of customer | 
+
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "subscription_id":"sub_J2VCueNEWsAbKD"
+}
+```
+
+| Parameter | Type   | Description                                                                                                                                               |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| subscription_id     | String | Subscription ID from stripe of the parents subscription to the current price of the delivery service |
+
+# Get parent's Subscription
+
+`GET https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription`
+
+<aside class="notice">
+The URL is a standin for now
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "id":"cus_1234"
+}
+```
+
+| Parameter | Type   | Description                                        |
+| --------- | ------ | -------------------------------------------------- |
+| id        | String | Stripe customer ID of customer | 
+
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "subscription_ids":["sub_J2VCueNEWsAbKD"]
+}
+```
+
+| Parameter | Type   | Description                                                                                                                                               |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| subscription_ids     | String Array | Array of subscription IDs assigned to the user. This should only ever be one but as it may be multiple, I'm returning them all |
