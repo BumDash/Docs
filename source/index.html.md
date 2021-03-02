@@ -34,7 +34,7 @@ The URL is a standin for now
 ```
 
 | Parameter | Type   | Description             |
-| --------- | ------ | ----------------------- |
+|-----------|--------|-------------------------|
 | name      | String | Full name of parent     |
 | email     | String | Email Address of parent |
 
@@ -51,7 +51,7 @@ The URL is a standin for now
 ```
 
 | Parameter | Type   | Description                                      |
-| --------- | ------ | ------------------------------------------------ |
+|-----------|--------|--------------------------------------------------|
 | stripe_id | String | Stripe customer ID to be saved to users table    |
 | email     | String | Email Address of parent - to ensure data matches |
 
@@ -73,7 +73,7 @@ The URL is a standin for now
 ```
 
 | Parameter | Type   | Description                                        |
-| --------- | ------ | -------------------------------------------------- |
+|-----------|--------|----------------------------------------------------|
 | id        | String | Stripe customer ID of customer - from createParent |
 
 
@@ -89,8 +89,44 @@ The URL is a standin for now
 ```
 
 | Parameter    | Type   | Description                                            |
-| ------------ | ------ | ------------------------------------------------------ |
+|--------------|--------|--------------------------------------------------------|
 | clientSecret | String | secret to be associated for all future payment intents |
+
+# Set Default Payment
+
+`POST https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment` 
+
+<aside class="notice">
+On return from creating the payment method, fire this endpoint to save the payment as 'default' on stripe.
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "id":"cus_1234",
+  "payment_id": "pm_5678"
+}
+```
+
+| Parameter  | Type   | Description                                   |
+|------------|--------|-----------------------------------------------|
+| id         | String | Stripe customer ID of parent                  |
+| payment_id | String | Stripe payment ID of recently created payment |
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "id":"cus_1234"
+}
+```
+
+| Parameter | Type   | Description                             |
+|-----------|--------|-----------------------------------------|
+| id        | String | Stripe customer ID of parent to confirm |
 
 # Get Customers Route
 
@@ -110,7 +146,7 @@ The URL is a standin for now
 ```
 
 | Parameter | Type  | Description                          |
-| --------- | ----- | ------------------------------------ |
+|-----------|-------|--------------------------------------|
 | lat       | float | Latitude in degrees of the customer  |
 | lng       | float | Longitude in degrees of the customer |
 
@@ -127,7 +163,7 @@ The URL is a standin for now
 ```
 
 | Parameter | Type   | Description                                                                                                                                               |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | route     | String | routeID as is stored in the database within the `routes` collection. If the coordinates are out of the service area, the value returns as `Unserviceable` |
 
 # Subscription Management
@@ -150,9 +186,9 @@ The URL is a standin for now
 }
 ```
 
-| Parameter | Type   | Description                                        |
-| --------- | ------ | -------------------------------------------------- |
-| id        | String | Stripe customer ID of customer | 
+| Parameter | Type   | Description                    |
+|-----------|--------|--------------------------------|
+| id        | String | Stripe customer ID of customer |
 
 
 ## Response 
@@ -165,9 +201,9 @@ The URL is a standin for now
 }
 ```
 
-| Parameter | Type   | Description                                                                                                                                               |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| subscription_id     | String | Subscription ID from stripe of the parents subscription to the current price of the delivery service |
+| Parameter       | Type   | Description                                                                                          |
+|-----------------|--------|------------------------------------------------------------------------------------------------------|
+| subscription_id | String | Subscription ID from stripe of the parents subscription to the current price of the delivery service |
 
 # Get parent's Subscription
 
@@ -185,9 +221,9 @@ The URL is a standin for now
 }
 ```
 
-| Parameter | Type   | Description                                        |
-| --------- | ------ | -------------------------------------------------- |
-| id        | String | Stripe customer ID of customer | 
+| Parameter | Type   | Description                    |
+|-----------|--------|--------------------------------|
+| id        | String | Stripe customer ID of customer |
 
 
 ## Response 
@@ -200,6 +236,6 @@ The URL is a standin for now
 }
 ```
 
-| Parameter | Type   | Description                                                                                                                                               |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| subscription_ids     | String Array | Array of subscription IDs assigned to the user. This should only ever be one but as it may be multiple, I'm returning them all |
+| Parameter        | Type         | Description                                                                                                                    |
+|------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------|
+| subscription_ids | String Array | Array of subscription IDs assigned to the user. This should only ever be one but as it may be multiple, I'm returning them all |
