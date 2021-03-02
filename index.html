@@ -241,10 +241,18 @@
               </ul>
           </li>
           <li>
-            <a href="#get-customers-route" class="toc-h1 toc-link" data-title="Get Customers Route">Get Customers Route</a>
+            <a href="#set-default-payment" class="toc-h1 toc-link" data-title="Set Default Payment">Set Default Payment</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#response-3" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#get-customers-route" class="toc-h1 toc-link" data-title="Get Customers Route">Get Customers Route</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#response-4" class="toc-h2 toc-link" data-title="Response">Response</a>
                   </li>
               </ul>
           </li>
@@ -255,7 +263,7 @@
             <a href="#activate-subscription" class="toc-h1 toc-link" data-title="Activate subscription">Activate subscription</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#response-4" class="toc-h2 toc-link" data-title="Response">Response</a>
+                    <a href="#response-5" class="toc-h2 toc-link" data-title="Response">Response</a>
                   </li>
               </ul>
           </li>
@@ -263,7 +271,7 @@
             <a href="#get-parent-39-s-subscription" class="toc-h1 toc-link" data-title="Get parent's Subscription">Get parent's Subscription</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#response-5" class="toc-h2 toc-link" data-title="Response">Response</a>
+                    <a href="#response-6" class="toc-h2 toc-link" data-title="Response">Response</a>
                   </li>
               </ul>
           </li>
@@ -388,6 +396,60 @@ The URL is a standin for now
 <td>secret to be associated for all future payment intents</td>
 </tr>
 </tbody></table>
+<h1 id='set-default-payment'>Set Default Payment</h1>
+<p><code>POST https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment</code> </p>
+
+<aside class="notice">
+On return from creating the payment method, fire this endpoint to save the payment as 'default' on stripe.
+</aside>
+
+<blockquote>
+<p>Requests require the following keys</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">cus_1234</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">payment_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">pm_5678</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Stripe customer ID of parent</td>
+</tr>
+<tr>
+<td>payment_id</td>
+<td>String</td>
+<td>Stripe payment ID of recently created payment</td>
+</tr>
+</tbody></table>
+<h2 id='response-3'>Response</h2>
+<blockquote>
+<p>Response looks like the following</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">cus_1234</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Stripe customer ID of parent to confirm</td>
+</tr>
+</tbody></table>
 <h1 id='get-customers-route'>Get Customers Route</h1>
 <p><code>POST https://us-east1-bumdash-sandbox.cloudfunctions.net/FindDeliveryDay</code> </p>
 
@@ -421,7 +483,7 @@ The URL is a standin for now
 <td>Longitude in degrees of the customer</td>
 </tr>
 </tbody></table>
-<h2 id='response-3'>Response</h2>
+<h2 id='response-4'>Response</h2>
 <blockquote>
 <p>Response looks like the following</p>
 </blockquote>
@@ -473,7 +535,7 @@ The URL is a standin for now
 <td>Stripe customer ID of customer</td>
 </tr>
 </tbody></table>
-<h2 id='response-4'>Response</h2>
+<h2 id='response-5'>Response</h2>
 <blockquote>
 <p>Response looks like the following</p>
 </blockquote>
@@ -521,7 +583,7 @@ The URL is a standin for now
 <td>Stripe customer ID of customer</td>
 </tr>
 </tbody></table>
-<h2 id='response-5'>Response</h2>
+<h2 id='response-6'>Response</h2>
 <blockquote>
 <p>Response looks like the following</p>
 </blockquote>
