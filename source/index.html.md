@@ -204,13 +204,13 @@ For the fields that are not required only update the field if they're included. 
 
 ```javascript
 {
-  "id":"pm_5678"
+  "payment_id":"pm_5678"
 }
 ```
 
-| Parameter | Type   | Description                                   |
-|-----------|--------|-----------------------------------------------|
-| id        | String | Stripe payment ID of recently created payment |
+| Parameter  | Type   | Description                                   |
+|------------|--------|-----------------------------------------------|
+| payment_id | String | Stripe payment ID of recently created payment |
 
 
 # Get Customers Route
