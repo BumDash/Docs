@@ -35,8 +35,8 @@ The URL is a standin for now
 
 | Parameter | Type   | Description             |
 |-----------|--------|-------------------------|
-| name      | String | Full name of parent     |
 | email     | String | Email Address of parent |
+| name      | String | Full name of parent     |
 
 
 ## Response 
@@ -127,6 +127,91 @@ On return from creating the payment method, fire this endpoint to save the payme
 | Parameter | Type   | Description                             |
 |-----------|--------|-----------------------------------------|
 | id        | String | Stripe customer ID of parent to confirm |
+
+# Delete/Detach Payment
+
+`DELETE https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment` 
+
+<aside class="notice">
+This is used when customers want to delete and add a new card
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "id":"cus_1234",
+  "payment_id": "pm_5678"
+}
+```
+
+| Parameter  | Type   | Description                                   |
+|------------|--------|-----------------------------------------------|
+| id         | String | Stripe customer ID of parent                  |
+| payment_id | String | Stripe payment ID of recently created payment |
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "id":"pm_5678"
+}
+```
+
+| Parameter | Type   | Description                                   |
+|-----------|--------|-----------------------------------------------|
+| id        | String | Stripe payment ID of recently created payment |
+
+# Edit Payment
+
+`PATCH https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment` 
+
+<aside class="notice">
+This only lets a customer edit fields around a payment. To modify Card number, delete and add a new one.
+For the fields that are not required only update the field if they're included. Omitted fields will remain what they are prior
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "id":"cus_1234",
+  "payment_id": "pm_5678"
+}
+```
+
+| Parameter     | Type   | Required | Description                                                                                                                              |
+|---------------|--------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id            | String | True     | Stripe customer ID of parent                                                                                                             |
+| payment_id    | String | True     | Stripe payment ID of recently created payment                                                                                            |
+| address_line1 | String | False    | Updated house and street description                                                                                                     |
+| address_line2 | String | False    | Unit number or apartment                                                                                                                 |
+| city          | String | False    | City of billing address                                                                                                                  |
+| country       | String | False    | 2 digit initial of billing country. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements for more info |
+| postal_code   | String | False    | Postal code of billing address                                                                                                           |
+| state         | String | False    | State of billing address                                                                                                                 |
+| email         | String | False    | Email of billing contact                                                                                                                 |
+| name          | String | False    | Name of billing contact                                                                                                                  |
+| phone         | String | False    | Phone for billing contact                                                                                                                |
+| exp_month     | String | False    | Expiration month of card (0 prefixed or not)                                                                                             |
+| exp_year      | String | False    | Expiration year of card (2 digits or 4)                                                                                                  |
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "id":"pm_5678"
+}
+```
+
+| Parameter | Type   | Description                                   |
+|-----------|--------|-----------------------------------------------|
+| id        | String | Stripe payment ID of recently created payment |
+
 
 # Get Customers Route
 
