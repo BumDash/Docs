@@ -177,8 +177,18 @@ For the fields that are not required only update the field if they're included. 
 
 ```javascript
 {
-  "id":"cus_1234",
-  "payment_id": "pm_5678"
+  "id": "cus_J2N9TBvFHSudKf", 
+  "payment_id":"pm_1IQIPIF8Q3XD74KdMOvzydvF", 
+  "exp_month":"06", 
+  "exp_year":"2026", 
+  "address_line1":"400 Market St", 
+  "address_line2":"Unit 112", 
+  "city":"Chapel Hill", 
+  "country":"US", 
+  "postal_code":"27516", 
+  "email":"test@bumdash.com", 
+  "name":"John doe", 
+  "phone":"+19199995408"
 }
 ```
 
@@ -211,6 +221,48 @@ For the fields that are not required only update the field if they're included. 
 | Parameter  | Type   | Description                                   |
 |------------|--------|-----------------------------------------------|
 | payment_id | String | Stripe payment ID of recently created payment |
+
+# Get Payment
+
+`GET https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment` 
+
+<aside class="notice">
+This only lets a customer edit fields around a payment. To modify Card number, delete and add a new one.
+For the fields that are not required only update the field if they're included. Omitted fields will remain what they are prior
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "id": "cus_J2N9TBvFHSudKf", 
+  "payment_id":"pm_1IQIPIF8Q3XD74KdMOvzydvF"
+}
+```
+
+| Parameter  | Type   | Description                                                        |
+|------------|--------|--------------------------------------------------------------------|
+| id         | String | Stripe customer ID of parent                                       |
+| payment_id | String | Stripe payment ID of customers  payment. Can be active or detached |
+
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "payment_id":"pm_5678",
+  "last_four":"1111",
+  "card_type":"visa"
+}
+```
+
+| Parameter  | Type   | Description                                   |
+|------------|--------|-----------------------------------------------|
+| payment_id | String | Stripe payment ID of recently created payment |
+| last_four  | String | Last four digits of payment method            |
+| card_type  | String | Card type of payment method if it's a card    |
 
 
 # Get Customers Route
