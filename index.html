@@ -265,10 +265,18 @@
               </ul>
           </li>
           <li>
-            <a href="#get-customers-route" class="toc-h1 toc-link" data-title="Get Customers Route">Get Customers Route</a>
+            <a href="#get-payment" class="toc-h1 toc-link" data-title="Get Payment">Get Payment</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#response-6" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#get-customers-route" class="toc-h1 toc-link" data-title="Get Customers Route">Get Customers Route</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#response-7" class="toc-h2 toc-link" data-title="Response">Response</a>
                   </li>
               </ul>
           </li>
@@ -279,7 +287,7 @@
             <a href="#activate-subscription" class="toc-h1 toc-link" data-title="Activate subscription">Activate subscription</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#response-7" class="toc-h2 toc-link" data-title="Response">Response</a>
+                    <a href="#response-8" class="toc-h2 toc-link" data-title="Response">Response</a>
                   </li>
               </ul>
           </li>
@@ -287,7 +295,7 @@
             <a href="#get-parent-39-s-subscription" class="toc-h1 toc-link" data-title="Get parent's Subscription">Get parent's Subscription</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#response-8" class="toc-h2 toc-link" data-title="Response">Response</a>
+                    <a href="#response-9" class="toc-h2 toc-link" data-title="Response">Response</a>
                   </li>
               </ul>
           </li>
@@ -532,8 +540,18 @@ For the fields that are not required only update the field if they're included. 
 <p>Requests require the following keys</p>
 </blockquote>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">cus_1234</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">payment_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">pm_5678</span><span class="dl">"</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cus_J2N9TBvFHSudKf</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">payment_id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">pm_1IQIPIF8Q3XD74KdMOvzydvF</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">exp_month</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">06</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">exp_year</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">2026</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">address_line1</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">400 Market St</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">address_line2</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Unit 112</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">city</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Chapel Hill</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">postal_code</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">27516</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">email</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">test@bumdash.com</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">John doe</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">phone</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">+19199995408</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div>
 <table><thead>
@@ -644,6 +662,73 @@ For the fields that are not required only update the field if they're included. 
 <td>Stripe payment ID of recently created payment</td>
 </tr>
 </tbody></table>
+<h1 id='get-payment'>Get Payment</h1>
+<p><code>GET https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment</code> </p>
+
+<aside class="notice">
+This only lets a customer edit fields around a payment. To modify Card number, delete and add a new one.
+For the fields that are not required only update the field if they're included. Omitted fields will remain what they are prior
+</aside>
+
+<blockquote>
+<p>Requests require the following keys</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cus_J2N9TBvFHSudKf</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">payment_id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">pm_1IQIPIF8Q3XD74KdMOvzydvF</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Stripe customer ID of parent</td>
+</tr>
+<tr>
+<td>payment_id</td>
+<td>String</td>
+<td>Stripe payment ID of customers  payment. Can be active or detached</td>
+</tr>
+</tbody></table>
+<h2 id='response-6'>Response</h2>
+<blockquote>
+<p>Response looks like the following</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">payment_id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">pm_5678</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">last_four</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1111</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">card_type</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">visa</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payment_id</td>
+<td>String</td>
+<td>Stripe payment ID of recently created payment</td>
+</tr>
+<tr>
+<td>last_four</td>
+<td>String</td>
+<td>Last four digits of payment method</td>
+</tr>
+<tr>
+<td>card_type</td>
+<td>String</td>
+<td>Card type of payment method if it&#39;s a card</td>
+</tr>
+</tbody></table>
 <h1 id='get-customers-route'>Get Customers Route</h1>
 <p><code>POST https://us-east1-bumdash-sandbox.cloudfunctions.net/FindDeliveryDay</code> </p>
 
@@ -677,7 +762,7 @@ The URL is a standin for now
 <td>Longitude in degrees of the customer</td>
 </tr>
 </tbody></table>
-<h2 id='response-6'>Response</h2>
+<h2 id='response-7'>Response</h2>
 <blockquote>
 <p>Response looks like the following</p>
 </blockquote>
@@ -729,7 +814,7 @@ The URL is a standin for now
 <td>Stripe customer ID of customer</td>
 </tr>
 </tbody></table>
-<h2 id='response-7'>Response</h2>
+<h2 id='response-8'>Response</h2>
 <blockquote>
 <p>Response looks like the following</p>
 </blockquote>
@@ -777,7 +862,7 @@ The URL is a standin for now
 <td>Stripe customer ID of customer</td>
 </tr>
 </tbody></table>
-<h2 id='response-8'>Response</h2>
+<h2 id='response-9'>Response</h2>
 <blockquote>
 <p>Response looks like the following</p>
 </blockquote>
