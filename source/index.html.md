@@ -231,19 +231,17 @@ This only lets a customer edit fields around a payment. To modify Card number, d
 For the fields that are not required only update the field if they're included. Omitted fields will remain what they are prior
 </aside>
 
->Requests require the following keys
+>Requests with params would look like the below
 
 ```javascript
-{
-  "id": "cus_J2N9TBvFHSudKf", 
-  "payment_id":"pm_1IQIPIF8Q3XD74KdMOvzydvF"
-}
+Example URL with params:
+`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment/?id=cus_J2N9TBvFHSudKf&payment=pm_1IQIPIF8Q3XD74KdMOvzydvF`
 ```
 
-| Parameter  | Type   | Description                                                        |
-|------------|--------|--------------------------------------------------------------------|
-| id         | String | Stripe customer ID of parent                                       |
-| payment_id | String | Stripe payment ID of customers  payment. Can be active or detached |
+| Parameter | Type   | Description                                                        |
+|-----------|--------|--------------------------------------------------------------------|
+| id        | String | Stripe customer ID of parent                                       |
+| payment   | String | Stripe payment ID of customers  payment. Can be active or detached |
 
 
 ## Response 
@@ -350,12 +348,12 @@ The URL is a standin for now
 The URL is a standin for now
 </aside>
 
->Requests require the following keys
+>Requests would look like the below
 
 ```javascript
-{
-  "id":"cus_1234"
-}
+
+`https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription/?id=cus_1234`
+
 ```
 
 | Parameter | Type   | Description                    |
