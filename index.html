@@ -671,12 +671,10 @@ For the fields that are not required only update the field if they're included. 
 </aside>
 
 <blockquote>
-<p>Requests require the following keys</p>
+<p>Requests with params would look like the below</p>
 </blockquote>
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cus_J2N9TBvFHSudKf</span><span class="dl">"</span><span class="p">,</span> 
-  <span class="dl">"</span><span class="s2">payment_id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">pm_1IQIPIF8Q3XD74KdMOvzydvF</span><span class="dl">"</span>
-<span class="p">}</span>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">Example</span> <span class="nx">URL</span> <span class="kd">with</span> <span class="nx">params</span><span class="p">:</span>
+<span class="s2">`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment/?id=cus_J2N9TBvFHSudKf&amp;payment=pm_1IQIPIF8Q3XD74KdMOvzydvF`</span>
 </code></pre></div>
 <table><thead>
 <tr>
@@ -691,7 +689,7 @@ For the fields that are not required only update the field if they're included. 
 <td>Stripe customer ID of parent</td>
 </tr>
 <tr>
-<td>payment_id</td>
+<td>payment</td>
 <td>String</td>
 <td>Stripe payment ID of customers  payment. Can be active or detached</td>
 </tr>
@@ -843,11 +841,11 @@ The URL is a standin for now
 </aside>
 
 <blockquote>
-<p>Requests require the following keys</p>
+<p>Requests would look like the below</p>
 </blockquote>
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">cus_1234</span><span class="dl">"</span>
-<span class="p">}</span>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="s2">`https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription/?id=cus_1234`</span>
+
 </code></pre></div>
 <table><thead>
 <tr>
