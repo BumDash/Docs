@@ -300,6 +300,14 @@
               </ul>
           </li>
           <li>
+            <a href="#get-parent-39-s-invoices" class="toc-h1 toc-link" data-title="Get parent's Invoices">Get parent's Invoices</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#response-10" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
@@ -674,7 +682,7 @@ For the fields that are not required only update the field if they're included. 
 <p>Requests with params would look like the below</p>
 </blockquote>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">Example</span> <span class="nx">URL</span> <span class="kd">with</span> <span class="nx">params</span><span class="p">:</span>
-<span class="s2">`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment/?id=cus_J2N9TBvFHSudKf&amp;payment=pm_1IQIPIF8Q3XD74KdMOvzydvF`</span>
+<span class="s2">`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment?id=cus_J2N9TBvFHSudKf&amp;payment=pm_1IQIPIF8Q3XD74KdMOvzydvF`</span>
 </code></pre></div>
 <table><thead>
 <tr>
@@ -879,6 +887,118 @@ The URL is a standin for now
 <td>subscription_ids</td>
 <td>String Array</td>
 <td>Array of subscription IDs assigned to the user. This should only ever be one but as it may be multiple, I&#39;m returning them all</td>
+</tr>
+</tbody></table>
+<h1 id='get-parent-39-s-invoices'>Get parent&#39;s Invoices</h1>
+<p><code>GET https://us-east1-bumdash-sandbox.cloudfunctions.net/Invoices</code></p>
+
+<aside class="notice">
+The URL is a standin for now
+</aside>
+
+<blockquote>
+<p>Requests would look like the below</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="s2">`https://us-east1-bumdash-sandbox.cloudfunctions.net/Invoices?id=cus_1234`</span>
+
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>True</td>
+<td>Stripe customer ID of customer</td>
+</tr>
+<tr>
+<td>lastObjectID</td>
+<td>String</td>
+<td>False</td>
+<td>Last invoice ID of the list of invoices - including this means an attempt at getting further invoices beyond what was originally returned.</td>
+</tr>
+</tbody></table>
+<h2 id='response-10'>Response</h2>
+<blockquote>
+<p>Response looks like the following. If there are no invoices, rather than array, the value of &quot;invoices&quot; will be <code>null</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">invoices</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">delivery_date</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2021-03-01T23:50:20-05:00</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">amount_due</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2899</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">amount_paid</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2899</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">in_1IQQBcF8Q3XD74KdEMLqRJl8</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">status</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">paid</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">subscription_type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Weekly Pickup and Delivery</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">pdfLink</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://pay.stripe.com/invoice/acct_1GC8FKF8Q3XD74Kd/invst_J2VCR4rHU9g4itf3UwTtZzMT8eZFe9s/pdf</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">hostedLink</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://invoice.stripe.com/i/acct_1GC8FKF8Q3XD74Kd/invst_J2VCR4rHU9g4itf3UwTtZzMT8eZFe9s</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">delivery_date</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2021-03-01T23:19:46-05:00</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">amount_due</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2899</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">amount_paid</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2899</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">in_1IQPi3F8Q3XD74KdTwgx882o</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">status</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">paid</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">subscription_type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Weekly Pickup and Delivery</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">pdfLink</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://pay.stripe.com/invoice/acct_1GC8FKF8Q3XD74Kd/invst_J2UhQTFAXvE3rusjwHQNFwjxaV3DBzv/pdf</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">hostedLink</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://invoice.stripe.com/i/acct_1GC8FKF8Q3XD74Kd/invst_J2UhQTFAXvE3rusjwHQNFwjxaV3DBzv</span><span class="dl">"</span>
+    <span class="p">},</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>delivery_date</td>
+<td>ISO-8601</td>
+<td>This is the date of the delivery and when the customer is charged</td>
+</tr>
+<tr>
+<td>amount_due</td>
+<td>Integer</td>
+<td>Amount due for the product that week. This is a whole number reflecting 10X the price to avoid using decimals. Divide by 10 before presenting to customer</td>
+</tr>
+<tr>
+<td>amount_paid</td>
+<td>Integer</td>
+<td>Amount paid for the product that week. This is a whole number reflecting 10X the price to avoid using decimals. Divide by 10 before presenting to customer</td>
+</tr>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Stripe ID of the Invoice, used if pagination applies for the next page</td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td>Status of the invoice, can be: &quot;draft&quot;, &quot;open&quot;, &quot;paid&quot;, &quot;uncollectable&quot;, &quot;void&quot;</td>
+</tr>
+<tr>
+<td>subscription_type</td>
+<td>String</td>
+<td>Product subscription that week, normally this will be either a &#39;weekly delivery&#39; or &#39;paused delivery&#39;</td>
+</tr>
+<tr>
+<td>pdfLink</td>
+<td>String</td>
+<td>Stripe URL to download the PDF of the invoice</td>
+</tr>
+<tr>
+<td>hostedLink</td>
+<td>String</td>
+<td>Stripe URL to view the invoice, can be used to pay due invoices or view receipts</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
