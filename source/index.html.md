@@ -235,7 +235,7 @@ For the fields that are not required only update the field if they're included. 
 
 ```javascript
 Example URL with params:
-`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment/?id=cus_J2N9TBvFHSudKf&payment=pm_1IQIPIF8Q3XD74KdMOvzydvF`
+`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment?id=cus_J2N9TBvFHSudKf&payment=pm_1IQIPIF8Q3XD74KdMOvzydvF`
 ```
 
 | Parameter | Type   | Description                                                        |
@@ -374,3 +374,67 @@ The URL is a standin for now
 | Parameter        | Type         | Description                                                                                                                    |
 |------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------|
 | subscription_ids | String Array | Array of subscription IDs assigned to the user. This should only ever be one but as it may be multiple, I'm returning them all |
+
+# Get parent's Invoices
+
+`GET https://us-east1-bumdash-sandbox.cloudfunctions.net/Invoices`
+
+<aside class="notice">
+The URL is a standin for now
+</aside>
+
+>Requests would look like the below
+
+```javascript
+
+`https://us-east1-bumdash-sandbox.cloudfunctions.net/Invoices?id=cus_1234`
+
+```
+
+| Parameter    | Type   | Required | Description                                                                                                                                |
+|--------------|--------|----------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| id           | String | True     | Stripe customer ID of customer                                                                                                             |
+| lastObjectID | String | False    | Last invoice ID of the list of invoices - including this means an attempt at getting further invoices beyond what was originally returned. |
+
+
+## Response 
+
+>Response looks like the following. If there are no invoices, rather than array, the value of "invoices" will be `null`
+
+```javascript
+{
+  "invoices": [
+    {
+      "delivery_date": "2021-03-01T23:50:20-05:00",
+      "amount_due": 2899,
+      "amount_paid": 2899,
+      "id": "in_1IQQBcF8Q3XD74KdEMLqRJl8",
+      "status": "paid",
+      "subscription_type": "Weekly Pickup and Delivery",
+      "pdfLink": "https://pay.stripe.com/invoice/acct_1GC8FKF8Q3XD74Kd/invst_J2VCR4rHU9g4itf3UwTtZzMT8eZFe9s/pdf",
+      "hostedLink": "https://invoice.stripe.com/i/acct_1GC8FKF8Q3XD74Kd/invst_J2VCR4rHU9g4itf3UwTtZzMT8eZFe9s"
+    },
+    {
+      "delivery_date": "2021-03-01T23:19:46-05:00",
+      "amount_due": 2899,
+      "amount_paid": 2899,
+      "id": "in_1IQPi3F8Q3XD74KdTwgx882o",
+      "status": "paid",
+      "subscription_type": "Weekly Pickup and Delivery",
+      "pdfLink": "https://pay.stripe.com/invoice/acct_1GC8FKF8Q3XD74Kd/invst_J2UhQTFAXvE3rusjwHQNFwjxaV3DBzv/pdf",
+      "hostedLink": "https://invoice.stripe.com/i/acct_1GC8FKF8Q3XD74Kd/invst_J2UhQTFAXvE3rusjwHQNFwjxaV3DBzv"
+    },
+  ]
+}
+```
+
+| Parameter         | Type     | Description                                                                                                                                                |
+|-------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| delivery_date     | ISO-8601 | This is the date of the delivery and when the customer is charged                                                                                          |
+| amount_due        | Integer  | Amount due for the product that week. This is a whole number reflecting 10X the price to avoid using decimals. Divide by 10 before presenting to customer  |
+| amount_paid       | Integer  | Amount paid for the product that week. This is a whole number reflecting 10X the price to avoid using decimals. Divide by 10 before presenting to customer |
+| id                | String   | Stripe ID of the Invoice, used if pagination applies for the next page                                                                                     |
+| status            | String   | Status of the invoice, can be: "draft", "open", "paid", "uncollectable", "void"                                                                            |
+| subscription_type | String   | Product subscription that week, normally this will be either a 'weekly delivery' or 'paused delivery'                                                      |
+| pdfLink           | String   | Stripe URL to download the PDF of the invoice                                                                                                              |
+| hostedLink        | String   | Stripe URL to view the invoice, can be used to pay due invoices or view receipts                                                                           |
