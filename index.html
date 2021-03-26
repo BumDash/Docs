@@ -292,7 +292,7 @@
               </ul>
           </li>
           <li>
-            <a href="#get-parent-39-s-subscription" class="toc-h1 toc-link" data-title="Get parent's Subscription">Get parent's Subscription</a>
+            <a href="#pause-subscription" class="toc-h1 toc-link" data-title="Pause subscription">Pause subscription</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#response-9" class="toc-h2 toc-link" data-title="Response">Response</a>
@@ -300,10 +300,26 @@
               </ul>
           </li>
           <li>
-            <a href="#get-parent-39-s-invoices" class="toc-h1 toc-link" data-title="Get parent's Invoices">Get parent's Invoices</a>
+            <a href="#resume-subscription" class="toc-h1 toc-link" data-title="Resume subscription">Resume subscription</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#response-10" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#get-parent-39-s-subscription" class="toc-h1 toc-link" data-title="Get parent's Subscription">Get parent's Subscription</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#response-11" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#get-parent-39-s-invoices" class="toc-h1 toc-link" data-title="Get parent's Invoices">Get parent's Invoices</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#response-12" class="toc-h2 toc-link" data-title="Response">Response</a>
                   </li>
               </ul>
           </li>
@@ -674,15 +690,14 @@ For the fields that are not required only update the field if they're included. 
 <p><code>GET https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment</code> </p>
 
 <aside class="notice">
-This only lets a customer edit fields around a payment. To modify Card number, delete and add a new one.
-For the fields that are not required only update the field if they're included. Omitted fields will remain what they are prior
+This only returns the default invoice payment type. All other payment types are hidden
 </aside>
 
 <blockquote>
 <p>Requests with params would look like the below</p>
 </blockquote>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">Example</span> <span class="nx">URL</span> <span class="kd">with</span> <span class="nx">params</span><span class="p">:</span>
-<span class="s2">`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment?id=cus_J2N9TBvFHSudKf&amp;payment=pm_1IQIPIF8Q3XD74KdMOvzydvF`</span>
+<span class="s2">`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment?id=cus_J2N9TBvFHSudKf`</span>
 </code></pre></div>
 <table><thead>
 <tr>
@@ -695,11 +710,6 @@ For the fields that are not required only update the field if they're included. 
 <td>id</td>
 <td>String</td>
 <td>Stripe customer ID of parent</td>
-</tr>
-<tr>
-<td>payment</td>
-<td>String</td>
-<td>Stripe payment ID of customers  payment. Can be active or detached</td>
 </tr>
 </tbody></table>
 <h2 id='response-6'>Response</h2>
@@ -797,7 +807,7 @@ The URL is a standin for now
 <p><code>POST https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription</code></p>
 
 <aside class="notice">
-The URL is a standin for now
+Creating a subscription sets the first billing date to the `firstPickupTime`
 </aside>
 
 <blockquote>
@@ -821,6 +831,114 @@ The URL is a standin for now
 </tr>
 </tbody></table>
 <h2 id='response-8'>Response</h2>
+<blockquote>
+<p>Response looks like the following</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">subscription_id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">sub_J2VCueNEWsAbKD</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id</td>
+<td>String</td>
+<td>Subscription ID from stripe of the parents subscription to the current price of the delivery service</td>
+</tr>
+</tbody></table>
+<h1 id='pause-subscription'>Pause subscription</h1>
+<p><code>PATCH https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription</code></p>
+
+<aside class="notice">
+Pause changes subscription items back to a `paused` product and price ID
+</aside>
+
+<blockquote>
+<p>Requests require the following keys</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">cus_1234</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">action</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">pause</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Stripe customer ID of customer</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>Action to be taken, <code>pause</code> or <code>resume</code></td>
+</tr>
+</tbody></table>
+<h2 id='response-9'>Response</h2>
+<blockquote>
+<p>Response looks like the following</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">subscription_id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">sub_J2VCueNEWsAbKD</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id</td>
+<td>String</td>
+<td>Subscription ID from stripe of the parents subscription to the current price of the delivery service</td>
+</tr>
+</tbody></table>
+<h1 id='resume-subscription'>Resume subscription</h1>
+<p><code>PATCH https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription</code></p>
+
+<aside class="notice">
+Resume changes subscription items back to a standard subscription product price
+</aside>
+
+<blockquote>
+<p>Requests require the following keys</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">cus_1234</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">action</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">resume</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Stripe customer ID of customer</td>
+</tr>
+<tr>
+<td>action</td>
+<td>String</td>
+<td>Action to be taken, <code>pause</code> or <code>resume</code></td>
+</tr>
+</tbody></table>
+<h2 id='response-10'>Response</h2>
 <blockquote>
 <p>Response looks like the following</p>
 </blockquote>
@@ -868,7 +986,7 @@ The URL is a standin for now
 <td>Stripe customer ID of customer</td>
 </tr>
 </tbody></table>
-<h2 id='response-9'>Response</h2>
+<h2 id='response-11'>Response</h2>
 <blockquote>
 <p>Response looks like the following</p>
 </blockquote>
@@ -924,7 +1042,7 @@ The URL is a standin for now
 <td>Last invoice ID of the list of invoices - including this means an attempt at getting further invoices beyond what was originally returned.</td>
 </tr>
 </tbody></table>
-<h2 id='response-10'>Response</h2>
+<h2 id='response-12'>Response</h2>
 <blockquote>
 <p>Response looks like the following. If there are no invoices, rather than array, the value of &quot;invoices&quot; will be <code>null</code></p>
 </blockquote>
