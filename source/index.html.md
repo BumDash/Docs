@@ -227,21 +227,20 @@ For the fields that are not required only update the field if they're included. 
 `GET https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment` 
 
 <aside class="notice">
-This only lets a customer edit fields around a payment. To modify Card number, delete and add a new one.
-For the fields that are not required only update the field if they're included. Omitted fields will remain what they are prior
+This only returns the default invoice payment type. All other payment types are hidden
 </aside>
 
 >Requests with params would look like the below
 
 ```javascript
 Example URL with params:
-`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment?id=cus_J2N9TBvFHSudKf&payment=pm_1IQIPIF8Q3XD74KdMOvzydvF`
+`https://us-east1-bumdash-sandbox.cloudfunctions.net/Payment?id=cus_J2N9TBvFHSudKf`
 ```
 
-| Parameter | Type   | Description                                                        |
-|-----------|--------|--------------------------------------------------------------------|
-| id        | String | Stripe customer ID of parent                                       |
-| payment   | String | Stripe payment ID of customers  payment. Can be active or detached |
+| Parameter | Type   | Description                  |
+|-----------|--------|------------------------------|
+| id        | String | Stripe customer ID of parent |
+
 
 
 ## Response 
@@ -310,7 +309,7 @@ The URL is a standin for now
 `POST https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription`
 
 <aside class="notice">
-The URL is a standin for now
+Creating a subscription sets the first billing date to the `firstPickupTime`
 </aside>
 
 >Requests require the following keys
@@ -324,6 +323,82 @@ The URL is a standin for now
 | Parameter | Type   | Description                    |
 |-----------|--------|--------------------------------|
 | id        | String | Stripe customer ID of customer |
+
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "subscription_id":"sub_J2VCueNEWsAbKD"
+}
+```
+
+| Parameter       | Type   | Description                                                                                          |
+|-----------------|--------|------------------------------------------------------------------------------------------------------|
+| subscription_id | String | Subscription ID from stripe of the parents subscription to the current price of the delivery service |
+
+# Pause subscription
+
+`PATCH https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription`
+
+<aside class="notice">
+Pause changes subscription items back to a `paused` product and price ID
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "id":"cus_1234",
+  "action":"pause"
+}
+```
+
+| Parameter | Type   | Description                             |
+|-----------|--------|-----------------------------------------|
+| id        | String | Stripe customer ID of customer          |
+| action    | String | Action to be taken, `pause` or `resume` |
+
+
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "subscription_id":"sub_J2VCueNEWsAbKD"
+}
+```
+
+| Parameter       | Type   | Description                                                                                          |
+|-----------------|--------|------------------------------------------------------------------------------------------------------|
+| subscription_id | String | Subscription ID from stripe of the parents subscription to the current price of the delivery service |
+
+# Resume subscription
+
+`PATCH https://us-east1-bumdash-sandbox.cloudfunctions.net/Subscription`
+
+<aside class="notice">
+Resume changes subscription items back to a standard subscription product price
+</aside>
+
+>Requests require the following keys
+
+```javascript
+{
+  "id":"cus_1234",
+  "action":"resume"
+}
+```
+
+| Parameter | Type   | Description                             |
+|-----------|--------|-----------------------------------------|
+| id        | String | Stripe customer ID of customer          |
+| action    | String | Action to be taken, `pause` or `resume` |
+
 
 
 ## Response 
