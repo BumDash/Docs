@@ -18,7 +18,7 @@ BumDash - Docs
 # Create Parent - Customer in Stripe
 
 ## Request
-`POST https://us-east1-bumdash-sandbox.cloudfunctions.net/CreateParent` 
+`POST https://us-east1-bumdash-sandbox.cloudfunctions.net/Parents` 
 
 <aside class="notice">
 The URL is a standin for now
@@ -54,6 +54,45 @@ The URL is a standin for now
 |-----------|--------|--------------------------------------------------|
 | stripe_id | String | Stripe customer ID to be saved to users table    |
 | email     | String | Email Address of parent - to ensure data matches |
+
+
+# Delete Parent and all accompanying data
+## Request
+`DELETE https://us-east1-bumdash-sandbox.cloudfunctions.net/Parents` 
+
+<aside class="notice">
+The URL is a standin for now
+</aside>
+
+>Requests require the following query params
+
+```javascript
+{
+  "id=cus_124&email=john@gmail.com"
+}
+```
+
+| Parameter | Type   | Description             |
+|-----------|--------|-------------------------|
+| id        | String | Stripe id of the parent |
+| email     | String | Email Address of parent |
+
+
+
+## Response 
+
+>Response looks like the following
+
+```javascript
+{
+  "success":"true"
+}
+```
+
+| Parameter | Type   | Description                                          |
+|-----------|--------|------------------------------------------------------|
+| success   | String | Whether the customer was deleted successfully or not |
+
 
 
 # setupIntent
@@ -394,10 +433,10 @@ Resume changes subscription items back to a standard subscription product price
 }
 ```
 
-| Parameter | Type   | Description                             |
-|-----------|--------|-----------------------------------------|
-| id        | String | Stripe customer ID of customer          |
-| action    | String | Action to be taken, `pause` or `resume` |
+| Parameter | Type   | Description                                        |
+|-----------|--------|----------------------------------------------------|
+| id        | String | Stripe customer ID of customer                     |
+| action    | String | Action to be taken, `pause`, `cancel`, or `resume` |
 
 
 
